@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 
 @FeignClient("FV_SERVICE")
-@Service("/user")
+@Service
+@RequestMapping("/user")
 interface UserService {
 
     @GetMapping("/")

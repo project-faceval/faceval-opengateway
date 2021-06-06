@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
 @FeignClient("FV_SERVICE")
-@Service("/blog")
+@Service
+@RequestMapping("/blog")
 interface PhotoService {
 
     @GetMapping("/")

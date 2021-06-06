@@ -1,8 +1,7 @@
 package com.chardon.faceval.client.web.utils
 
-import com.chardon.faceval.client.web.util.PosSetBuilder
+import com.chardon.faceval.client.web.util.PosSetBuilderFactory
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -33,6 +32,6 @@ class PosSetBuilderTest {
 
     @Test
     fun convert1() {
-        Assertions.assertEquals(expected1, PosSetBuilder.fromMap(input1))
+        Assertions.assertEquals(expected1, PosSetBuilderFactory.fromMap(input1))
     }
 }
