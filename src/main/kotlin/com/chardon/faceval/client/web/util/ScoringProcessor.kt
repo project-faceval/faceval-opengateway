@@ -19,11 +19,11 @@ class ScoringProcessor {
         val faceScore = face[1] - face[0]
 
         // Eyes part
-        var eyesScore = 0
+        var eyesScore = 0.0
 
         val eyesList = listOf(eyes.first, eyes.second)
         for (item in eyesList) {
-            eyesScore += eyesList[2] + eyesList[1] * 0.5 - eyesList[0] * 0.5 - eyesList[3]
+            eyesScore += item[2] + item[1] * 0.5 - item[0] * 0.5 - item[3]
         }
 
         eyesScore /= 2
