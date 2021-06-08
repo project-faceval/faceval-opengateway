@@ -14,8 +14,8 @@ import org.springframework.web.multipart.MultipartFile
 interface PhotoService {
 
     @GetMapping("/")
-    fun getPhoto(@RequestParam("id") photoId: String?,
-                 @RequestParam("user_id") userId: String?): PhotoInfo
+    fun getPhoto(@RequestParam("id") photoId: Long?,
+                 @RequestParam("user_id") userId: String?): List<PhotoInfo>
 
     @PostMapping("/")
     fun addPhoto(@RequestBody newPhoto: PhotoInfoUpload<MultipartFile>): PhotoInfo
@@ -26,6 +26,6 @@ interface PhotoService {
     @DeleteMapping("/")
     fun removePhoto(@RequestParam("id") userName: String,
                     @RequestParam("password") password: String,
-                    @RequestParam("photo_id") photoId: String,
+                    @RequestParam("photo_id") photoId: Long,
                     @RequestParam("fake_delete") fakeDelete: Boolean = true): Map<String, String>
 }

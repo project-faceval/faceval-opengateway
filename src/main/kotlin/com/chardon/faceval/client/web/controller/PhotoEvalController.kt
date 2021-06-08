@@ -7,10 +7,7 @@ import com.chardon.faceval.client.web.util.ScoringProcessor
 import com.chardon.faceval.entity.DetectionResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
 @RestController
@@ -40,15 +37,7 @@ class PhotoEvalController {
     @PostMapping("/scoring")
     fun scoringOnly(@RequestParam("ext") extension: String,
                     @RequestParam("bimg") image: MultipartFile,
-                    @RequestParam("posSet") posSet: String): List<Double> {
-        return scoringProcessor.getScore(scoringService.scoring(extension, image, posSet))
-    }
-
-    @PostMapping("/")
-    fun eval(@RequestParam("ext") extension: String,
-             @RequestParam("bimg") image: MultipartFile): List<Double> {
-        val detectionResult = detectionService.detect(extension, image)
-
+                    @RequestBody detectionResult: DetectionResult): List<Double> {
         val builder = factory.getBuilder()
         for (facePos in detectionResult.face) {
             builder.addPos("face", listOf(facePos.startX, facePos.startY, facePos.lengthX, facePos.lengthY))
@@ -67,5 +56,12 @@ class PhotoEvalController {
         }
 
         return scoringProcessor.getScore(scoringService.scoring(extension, image, builder.toString()))
+    }
+
+    @PostMapping("/")
+    fun eval(@RequestParam("ext") extension: String,
+             @RequestParam("bimg") image: MultipartFile): List<Double> {
+        val detectionResult = detectionService.detect(extension, image)
+        return scoringOnly(extension, image, detectionResult)
     }
 }

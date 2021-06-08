@@ -15,9 +15,9 @@ class PhotoController {
     private lateinit var photoService: PhotoService
 
     @GetMapping("/{photo_id}/{user_id}")
-    fun getPhoto(@PathVariable("photo_id") photoId: String,
-                 @PathVariable("user_id") userId: String): PhotoInfo {
-        val photoIdCleaned = if (photoId == "*") null else photoId
+    fun getPhoto(@PathVariable("photo_id") photoId: Long,
+                 @PathVariable("user_id") userId: String): List<PhotoInfo> {
+        val photoIdCleaned = if (photoId < 0) null else photoId
         val userIdCleaned = if (userId == "*") null else userId
 
         return photoService.getPhoto(photoIdCleaned, userIdCleaned)
@@ -36,7 +36,7 @@ class PhotoController {
     @DeleteMapping("/")
     fun deletePhoto(@RequestParam("id") userName: String,
                     @RequestParam("password") password: String,
-                    @RequestParam("photo_id") photoId: String): Map<String, String> {
+                    @RequestParam("photo_id") photoId: Long): Map<String, String> {
         return photoService.removePhoto(userName, password, photoId)
     }
 }
