@@ -14,11 +14,11 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/eval")
 class PhotoEvalController {
 
-    @Qualifier("faceDetectionService")
+    @Qualifier("com.chardon.faceval.client.web.service.FaceDetectionService")
     @Autowired
     private lateinit var detectionService: FaceDetectionService
 
-    @Qualifier("faceScoringService")
+    @Qualifier("com.chardon.faceval.client.web.service.FaceScoringService")
     @Autowired
     private lateinit var scoringService: FaceScoringService
 

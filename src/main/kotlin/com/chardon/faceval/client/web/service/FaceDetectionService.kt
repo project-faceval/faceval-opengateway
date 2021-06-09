@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 
-@FeignClient("FV_CV_SERVICE")
+@FeignClient("fv-cv-service")
 @Service
 interface FaceDetectionService {
 

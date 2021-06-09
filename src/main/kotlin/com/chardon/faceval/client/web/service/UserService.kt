@@ -1,31 +1,36 @@
 package com.chardon.faceval.client.web.service
 
+import com.chardon.faceval.client.web.client.MainServiceClient
 import com.chardon.faceval.entity.UserInfo
 import com.chardon.faceval.entity.UserInfoUpload
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 
-@FeignClient("FV_SERVICE")
 @Service
-@RequestMapping("/user")
-interface UserService {
+class UserService {
 
-    @GetMapping("/")
-    fun getUser(@RequestParam("id") userName: String): UserInfo
+    @Autowired
+    private lateinit var client: MainServiceClient
 
-    @PostMapping("/")
-    fun createUser(@RequestBody newUser: UserInfoUpload): UserInfo
+    fun getUser(userName: String): UserInfo {
+        return client.getUser(userName)
+    }
 
-    @PutMapping("/")
-    fun updateUser(@RequestBody updatedUserInfo: UserInfoUpload): UserInfo
+    fun createUser(newUser: UserInfoUpload): UserInfo {
+        return client.createUser(newUser)
+    }
 
-    @DeleteMapping("/")
-    fun removeUser(@RequestParam("id") userName: String,
-                   @RequestParam("password") password: String): Map<String, String>
+    fun updateUser(updatedUserInfo: UserInfoUpload): UserInfo {
+        return client.updateUser(updatedUserInfo)
+    }
 
-    @PatchMapping("/")
-    fun updatePassword(@RequestParam("id") userName: String,
-                       @RequestParam("password") oldPassword: String,
-                       @RequestParam("new_password") newPassword: String): Map<String, String>
+    fun removeUser(userName: String, password: String): Map<String, String> {
+        return client.removeUser(userName, password)
+    }
+
+    fun updatePassword(userName: String, oldPassword: String, newPassword: String): Map<String, String> {
+        return client.updatePassword(userName, oldPassword, newPassword)
+    }
 }
