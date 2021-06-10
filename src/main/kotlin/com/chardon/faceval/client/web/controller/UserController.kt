@@ -72,15 +72,15 @@ class UserController {
 
     @GetMapping("/user/{username}")
     fun getUser(@PathVariable("username") userName: String): ResponseEntity<UserInfo> {
-        if (userNameCheck(userName) != "OK") {
-            return ResponseEntity(null, HttpStatus.FORBIDDEN)
-        }
-
         return ResponseEntity(userService.getUser(userName), HttpStatus.OK)
     }
 
     @PostMapping("/user")
     fun createUser(@RequestBody newUser: UserInfoUpload): ResponseEntity<UserInfo> {
+        if (userNameCheck(newUser.id) != "OK") {
+            return ResponseEntity(null, HttpStatus.FORBIDDEN)
+        }
+
         return ResponseEntity(userService.createUser(newUser), HttpStatus.CREATED)
     }
 

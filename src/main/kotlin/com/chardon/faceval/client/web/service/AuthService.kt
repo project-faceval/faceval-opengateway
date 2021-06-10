@@ -2,11 +2,8 @@ package com.chardon.faceval.client.web.service
 
 import com.chardon.faceval.client.web.client.MainServiceClient
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.cloud.openfeign.FeignClient
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 
 @Service
 class AuthService {

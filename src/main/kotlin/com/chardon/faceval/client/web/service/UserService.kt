@@ -4,6 +4,7 @@ import com.chardon.faceval.client.web.client.MainServiceClient
 import com.chardon.faceval.entity.UserInfo
 import com.chardon.faceval.entity.UserInfoUpload
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*

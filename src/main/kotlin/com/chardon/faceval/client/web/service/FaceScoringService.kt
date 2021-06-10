@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.multipart.MultipartFile
 
 @FeignClient("fv-ml-service")
-@Service
 interface FaceScoringService {
 
     @PostMapping("/")
