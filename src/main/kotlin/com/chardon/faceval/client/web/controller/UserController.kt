@@ -28,7 +28,7 @@ class UserController {
     fun login(@RequestParam("username") userName: String,
               @RequestParam("password") password: String): ResponseEntity<UserInfo> {
 
-        var result: Map<String, String>? = null
+        val result: Map<String, String>?
 
         try {
             result = authService.authenticate(userName, password)

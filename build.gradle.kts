@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.chardon.faceval"
-version = "0.0.1-SNAPSHOT"
+version = "0.1.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -27,15 +27,14 @@ repositories {
 extra["springCloudVersion"] = "2020.0.3"
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("org.springframework.cloud:spring-cloud-starter")
+    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-//    implementation("org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.8.RELEASE")
-//    implementation("org.springframework.cloud:spring-cloud-starter-netflix-ribbon:2.2.8.RELEASE")
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
