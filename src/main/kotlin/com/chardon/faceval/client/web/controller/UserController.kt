@@ -40,6 +40,8 @@ class UserController {
             return ResponseEntity(null, HttpStatus.UNAUTHORIZED)
         } catch (e: FeignException.Forbidden) {
             return ResponseEntity(null, HttpStatus.FORBIDDEN)
+        } catch (e: FeignException.BadRequest) {
+            return ResponseEntity(null, HttpStatus.BAD_REQUEST)
         }
 
         val userInfo = userService.getUser(userName)

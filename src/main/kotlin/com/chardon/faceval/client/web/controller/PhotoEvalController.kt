@@ -4,7 +4,9 @@ import com.chardon.faceval.client.web.service.FaceDetectionService
 import com.chardon.faceval.client.web.service.FaceScoringService
 import com.chardon.faceval.client.web.util.PosSetBuilderFactory
 import com.chardon.faceval.client.web.util.ScoringProcessor
+import com.chardon.faceval.entity.DetectionModelBase64
 import com.chardon.faceval.entity.DetectionResult
+import com.chardon.faceval.entity.ScoringModelBase64
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.web.bind.annotation.*
@@ -27,16 +29,20 @@ class PhotoEvalController {
     private lateinit var scoringProcessor: ScoringProcessor
 
     @PostMapping("/detect")
-    fun detectOnly(@RequestParam("ext") extension: String,
-                   @RequestParam("bimg") image: MultipartFile): DetectionResult {
-        return detectionService.detect(extension, image)
+    fun detectOnly(@RequestBody detection: DetectionModelBase64): DetectionResult {
+        return detectionService.detect(detection)
     }
 
     @PostMapping("/scoring")
-    fun scoringOnly(@RequestParam("ext") extension: String,
-                    @RequestParam("bimg") image: MultipartFile,
-                    @RequestBody detectionResult: DetectionResult): List<Double> {
+    fun scoringOnly(@RequestBody scoring: ScoringModelBase64): List<Double> {
+        return scoringProcessor.getScore(scoringService.scoring(scoring))
+    }
+
+    @PostMapping("/")
+    fun eval(@RequestBody detection: DetectionModelBase64): List<Double> {
         val builder = factory.getBuilder()
+        val detectionResult = detectionService.detect(detection)
+
         for (facePos in detectionResult.face) {
             builder.addPos("face", listOf(facePos.startX, facePos.startY, facePos.lengthX, facePos.lengthY))
         }
@@ -53,13 +59,12 @@ class PhotoEvalController {
             builder.addPos("mouth", listOf(mouthPos.startX, mouthPos.startY, mouthPos.lengthX, mouthPos.lengthY))
         }
 
-        return scoringProcessor.getScore(scoringService.scoring(extension, image, builder.toString()))
-    }
-
-    @PostMapping("/")
-    fun eval(@RequestParam("ext") extension: String,
-             @RequestParam("bimg") image: MultipartFile): List<Double> {
-        val detectionResult = detectionService.detect(extension, image)
-        return scoringOnly(extension, image, detectionResult)
+        return scoringOnly(
+            ScoringModelBase64(
+                bimg = detection.bimg,
+                ext = detection.ext,
+                posSet = builder.toString()
+            )
+        )
     }
 }

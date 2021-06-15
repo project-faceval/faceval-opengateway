@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.chardon.faceval"
-version = "0.1.0"
+version = "0.2.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -37,6 +37,9 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign.form:feign-form")
+    implementation("io.github.openfeign.form:feign-form-spring")
+    implementation("io.github.openfeign:feign-httpclient")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

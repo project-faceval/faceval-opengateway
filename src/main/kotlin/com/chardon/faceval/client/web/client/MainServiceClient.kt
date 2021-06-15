@@ -1,8 +1,10 @@
 package com.chardon.faceval.client.web.client
 
+import com.chardon.faceval.client.web.configuration.PostEncodingConfiguration
 import com.chardon.faceval.entity.*
+import feign.Headers
 import org.springframework.cloud.openfeign.FeignClient
-import org.springframework.stereotype.Component
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 
@@ -30,8 +32,7 @@ interface MainServiceClient {
 
     // Auth
     @PostMapping("/auth/")
-    fun authenticate(@RequestParam("id") userName: String,
-                     @RequestParam("password") password: String): Map<String, String>
+    fun authenticate(@RequestBody authInfo: AuthInfo): Map<String, String>
 
     // Photo
     @GetMapping("/blog/")
@@ -39,7 +40,7 @@ interface MainServiceClient {
                  @RequestParam("user_id") userId: String?): List<PhotoInfo>
 
     @PostMapping("/blog/")
-    fun addPhoto(@RequestBody newPhoto: PhotoInfoUpload<MultipartFile>): PhotoInfo
+    fun addPhoto(@RequestBody newPhoto: PhotoInfoUploadBase64): PhotoInfo
 
     @PutMapping("/blog/")
     fun updatePhoto(@RequestBody updatedPhoto: PhotoInfoUpdate): PhotoInfo

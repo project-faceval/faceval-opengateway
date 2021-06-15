@@ -4,6 +4,7 @@ import com.chardon.faceval.client.web.client.MainServiceClient
 import com.chardon.faceval.entity.PhotoInfo
 import com.chardon.faceval.entity.PhotoInfoUpdate
 import com.chardon.faceval.entity.PhotoInfoUpload
+import com.chardon.faceval.entity.PhotoInfoUploadBase64
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.cloud.openfeign.FeignClient
@@ -21,7 +22,7 @@ class PhotoService {
         return client.getPhoto(photoId, userId)
     }
 
-    fun addPhoto(newPhoto: PhotoInfoUpload<MultipartFile>): PhotoInfo {
+    fun addPhoto(newPhoto: PhotoInfoUploadBase64): PhotoInfo {
         return client.addPhoto(newPhoto)
     }
 
