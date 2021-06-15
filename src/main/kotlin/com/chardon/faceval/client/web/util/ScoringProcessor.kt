@@ -7,7 +7,7 @@ import java.util.*
 @Component
 class ScoringProcessor {
 
-    private val scale = 0.2
+    private val scale = 1.2
 
     private val baseScore = 6.0
 

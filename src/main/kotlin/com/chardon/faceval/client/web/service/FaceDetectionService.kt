@@ -13,5 +13,5 @@ import org.springframework.web.multipart.MultipartFile
 interface FaceDetectionService {
 
     @PostMapping("/")
-    fun detect(@RequestBody detection: DetectionModelBase64): DetectionResult
+    fun detect(detection: DetectionModelBase64): DetectionResult
 }

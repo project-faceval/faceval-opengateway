@@ -30,17 +30,17 @@ class PhotoController {
         }
     }
 
-    @PostMapping("", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
-    fun createPhoto(@RequestBody newPhoto: PhotoInfoUploadBase64): PhotoInfo {
+    @PostMapping("/")
+    fun createPhoto(newPhoto: PhotoInfoUploadBase64): PhotoInfo {
         return photoService.addPhoto(newPhoto)
     }
 
-    @PutMapping("")
-    fun updatePhoto(@RequestBody updatedPhoto: PhotoInfoUpdate): PhotoInfo {
+    @PutMapping("/")
+    fun updatePhoto(updatedPhoto: PhotoInfoUpdate): PhotoInfo {
         return photoService.updatePhoto(updatedPhoto)
     }
 
-    @DeleteMapping("")
+    @DeleteMapping("/")
     fun deletePhoto(@RequestParam("id") userName: String,
                     @RequestParam("password") password: String,
                     @RequestParam("photo_id") photoId: Long): Map<String, String> {

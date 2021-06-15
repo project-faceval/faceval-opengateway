@@ -13,5 +13,5 @@ import org.springframework.web.multipart.MultipartFile
 interface FaceScoringService {
 
     @PostMapping("/")
-    fun scoring(@RequestBody scoring: ScoringModelBase64): ScoringResult
+    fun scoring(scoring: ScoringModelBase64): ScoringResult
 }

@@ -29,17 +29,17 @@ class PhotoEvalController {
     private lateinit var scoringProcessor: ScoringProcessor
 
     @PostMapping("/detect")
-    fun detectOnly(@RequestBody detection: DetectionModelBase64): DetectionResult {
+    fun detectOnly(detection: DetectionModelBase64): DetectionResult {
         return detectionService.detect(detection)
     }
 
     @PostMapping("/scoring")
-    fun scoringOnly(@RequestBody scoring: ScoringModelBase64): List<Double> {
+    fun scoringOnly(scoring: ScoringModelBase64): List<Double> {
         return scoringProcessor.getScore(scoringService.scoring(scoring))
     }
 
     @PostMapping("/")
-    fun eval(@RequestBody detection: DetectionModelBase64): List<Double> {
+    fun eval(detection: DetectionModelBase64): List<Double> {
         val builder = factory.getBuilder()
         val detectionResult = detectionService.detect(detection)
 
@@ -48,7 +48,7 @@ class PhotoEvalController {
         }
 
         for (eyePos in detectionResult.eye) {
-            builder.addPos("eye", listOf(eyePos.startX, eyePos.startY, eyePos.lengthX, eyePos.lengthY))
+            builder.addPos("eyes", listOf(eyePos.startX, eyePos.startY, eyePos.lengthX, eyePos.lengthY))
         }
 
         for (nosePos in detectionResult.nose) {

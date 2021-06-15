@@ -78,7 +78,7 @@ class UserController {
     }
 
     @PostMapping("/user")
-    fun createUser(@RequestBody newUser: UserInfoUpload): ResponseEntity<UserInfo> {
+    fun createUser(newUser: UserInfoUpload): ResponseEntity<UserInfo> {
         if (userNameCheck(newUser.id) != "OK") {
             return ResponseEntity(null, HttpStatus.FORBIDDEN)
         }
@@ -87,7 +87,7 @@ class UserController {
     }
 
     @PutMapping("/user")
-    fun updateUser(@RequestBody updatedUser: UserInfoUpload): UserInfo {
+    fun updateUser(updatedUser: UserInfoUpload): UserInfo {
         return userService.updateUser(updatedUser)
     }
 

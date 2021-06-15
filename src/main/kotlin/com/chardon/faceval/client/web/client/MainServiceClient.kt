@@ -16,10 +16,10 @@ interface MainServiceClient {
     fun getUser(@RequestParam("id") userName: String): UserInfo
 
     @PostMapping("/user/")
-    fun createUser(@RequestBody newUser: UserInfoUpload): UserInfo
+    fun createUser(newUser: UserInfoUpload): UserInfo
 
     @PutMapping("/user/")
-    fun updateUser(@RequestBody updatedUserInfo: UserInfoUpload): UserInfo
+    fun updateUser(updatedUserInfo: UserInfoUpload): UserInfo
 
     @DeleteMapping("/user/")
     fun removeUser(@RequestParam("id") userName: String,
@@ -32,7 +32,7 @@ interface MainServiceClient {
 
     // Auth
     @PostMapping("/auth/")
-    fun authenticate(@RequestBody authInfo: AuthInfo): Map<String, String>
+    fun authenticate(authInfo: AuthInfo): Map<String, String>
 
     // Photo
     @GetMapping("/blog/")
@@ -40,10 +40,10 @@ interface MainServiceClient {
                  @RequestParam("user_id") userId: String?): List<PhotoInfo>
 
     @PostMapping("/blog/")
-    fun addPhoto(@RequestBody newPhoto: PhotoInfoUploadBase64): PhotoInfo
+    fun addPhoto(newPhoto: PhotoInfoUploadBase64): PhotoInfo
 
     @PutMapping("/blog/")
-    fun updatePhoto(@RequestBody updatedPhoto: PhotoInfoUpdate): PhotoInfo
+    fun updatePhoto(updatedPhoto: PhotoInfoUpdate): PhotoInfo
 
     @DeleteMapping("/blog/")
     fun removePhoto(@RequestParam("id") userName: String,
