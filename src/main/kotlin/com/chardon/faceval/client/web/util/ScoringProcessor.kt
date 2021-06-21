@@ -79,14 +79,18 @@ class ScoringProcessor {
                 scores.add(scoringSingleFace(scoringResult.face[offset], null, null, null))
             }
 
-            scores.add(
-                scoringSingleFace(
-                    scoringResult.face[offset],
-                    Pair(scoringResult.eye[offset * 2], scoringResult.eye[offset * 2 + 1]),
-                    scoringResult.nose[offset],
-                    scoringResult.mouth[offset]
+            try {
+                scores.add(
+                    scoringSingleFace(
+                        scoringResult.face[offset],
+                        Pair(scoringResult.eye[offset * 2], scoringResult.eye[offset * 2 + 1]),
+                        scoringResult.nose[offset],
+                        scoringResult.mouth[offset]
+                    )
                 )
-            )
+            } catch (e: Exception) {
+                scores.add(scoringSingleFace(scoringResult.face[offset], null, null, null))
+            }
         }
 
         return scores
