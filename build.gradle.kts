@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.chardon.faceval"
-version = "1.x-MAINLINE"
+version = "1.3.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {

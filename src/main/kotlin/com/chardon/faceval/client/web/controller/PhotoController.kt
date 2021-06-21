@@ -23,16 +23,7 @@ class PhotoController {
                  @RequestParam("user_id") userId: String?,
                  @RequestParam("attach_base") attachBase: Boolean = false): ResponseEntity<List<PhotoInfo>> {
         return try {
-            val photos = photoService.getPhoto(photoId, userId)
-
-            if (!attachBase) {
-                val updatedPhotos = photos.stream().map {
-                    it.stripBase()
-                }.collect(Collectors.toList())
-
-                return ResponseEntity(updatedPhotos, HttpStatus.OK)
-            }
-
+            val photos = photoService.getPhoto(photoId, userId, attachBase)
             ResponseEntity(photos, HttpStatus.OK)
         } catch (e: FeignException.NotFound) {
             ResponseEntity(null, HttpStatus.NOT_FOUND)
@@ -44,24 +35,13 @@ class PhotoController {
         newPhoto: PhotoInfoUploadBase64,
         @RequestParam("attach_base") attachBase: Boolean = false
     ): PhotoInfo {
-        val addedPhoto = photoService.addPhoto(newPhoto)
-
-        return if (attachBase) {
-            addedPhoto
-        } else {
-            addedPhoto.stripBase()
-        }
+        return photoService.addPhoto(newPhoto, attachBase)
     }
 
     @PutMapping("/")
     fun updatePhoto(updatedPhoto: PhotoInfoUpdate,
                     @RequestParam("attach_base") attachBase: Boolean = false): PhotoInfo {
-        val updatedPhoto1 = photoService.updatePhoto(updatedPhoto)
-        return if (attachBase) {
-            updatedPhoto1
-        } else {
-            updatedPhoto1.stripBase()
-        }
+        return photoService.updatePhoto(updatedPhoto, attachBase)
     }
 
     @DeleteMapping("/")
@@ -71,18 +51,18 @@ class PhotoController {
         return photoService.removePhoto(userName, password, photoId)
     }
 
-    private fun PhotoInfo.stripBase(): PhotoInfo {
-        return this.let {
-            PhotoInfo(
-                base = "",
-                dateAdded = it.dateAdded,
-                description = it.description,
-                id = it.id,
-                positions = it.positions,
-                score = it.score,
-                tag = it.tag,
-                title = it.title,
-            )
-        }
-    }
+//    private fun PhotoInfo.stripBase(): PhotoInfo {
+//        return this.let {
+//            PhotoInfo(
+//                base = "",
+//                dateAdded = it.dateAdded,
+//                description = it.description,
+//                id = it.id,
+//                positions = it.positions,
+//                score = it.score,
+//                tag = it.tag,
+//                title = it.title,
+//            )
+//        }
+//    }
 }

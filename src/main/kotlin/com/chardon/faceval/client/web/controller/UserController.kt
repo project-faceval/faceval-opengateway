@@ -49,10 +49,10 @@ class UserController {
         return ResponseEntity(userInfo, HttpStatus.OK)
     }
 
-//    @PostMapping("/logout")
-//    fun logout(@RequestParam("username") userName: String): Boolean {
-//        return true
-//    }
+    @PostMapping("/logout")
+    fun logout(@RequestParam("username") userName: String): Boolean {
+        return true
+    }
 
     @GetMapping("/check/{username}")
     fun userNameCheck(@PathVariable("username") userName: String): String {

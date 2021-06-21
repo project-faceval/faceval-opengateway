@@ -35,17 +35,20 @@ interface MainServiceClient {
     fun authenticate(authInfo: AuthInfo): Map<String, String>
 
     // Photo
-    @GetMapping("/blog/")
+    @GetMapping("/photo/")
     fun getPhoto(@RequestParam("id") photoId: Long?,
-                 @RequestParam("user_id") userId: String?): List<PhotoInfo>
+                 @RequestParam("user_id") userId: String?,
+                 @RequestParam("attach_base") attachBase: Boolean = false): List<PhotoInfo>
 
-    @PostMapping("/blog/")
-    fun addPhoto(newPhoto: PhotoInfoUploadBase64): PhotoInfo
+    @PostMapping("/photo/")
+    fun addPhoto(newPhoto: PhotoInfoUploadBase64,
+                 @RequestParam("attach_base") attachBase: Boolean = false): PhotoInfo
 
-    @PutMapping("/blog/")
-    fun updatePhoto(updatedPhoto: PhotoInfoUpdate): PhotoInfo
+    @PutMapping("/photo/")
+    fun updatePhoto(updatedPhoto: PhotoInfoUpdate,
+                    @RequestParam("attach_base") attachBase: Boolean = false): PhotoInfo
 
-    @DeleteMapping("/blog/")
+    @DeleteMapping("/photo/")
     fun removePhoto(@RequestParam("id") userName: String,
                     @RequestParam("password") password: String,
                     @RequestParam("photo_id") photoId: Long,

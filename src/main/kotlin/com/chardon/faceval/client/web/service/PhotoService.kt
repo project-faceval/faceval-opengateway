@@ -18,16 +18,16 @@ class PhotoService {
     @Autowired
     private lateinit var client: MainServiceClient
 
-    fun getPhoto(photoId: Long?, userId: String?): List<PhotoInfo> {
-        return client.getPhoto(photoId, userId)
+    fun getPhoto(photoId: Long?, userId: String?, attachBase: Boolean = false): List<PhotoInfo> {
+        return client.getPhoto(photoId, userId, attachBase)
     }
 
-    fun addPhoto(newPhoto: PhotoInfoUploadBase64): PhotoInfo {
-        return client.addPhoto(newPhoto)
+    fun addPhoto(newPhoto: PhotoInfoUploadBase64, attachBase: Boolean = false): PhotoInfo {
+        return client.addPhoto(newPhoto, attachBase)
     }
 
-    fun updatePhoto(updatedPhoto: PhotoInfoUpdate): PhotoInfo {
-        return client.updatePhoto(updatedPhoto)
+    fun updatePhoto(updatedPhoto: PhotoInfoUpdate, attachBase: Boolean = false): PhotoInfo {
+        return client.updatePhoto(updatedPhoto, attachBase)
     }
 
     fun removePhoto(userName: String, password: String,
