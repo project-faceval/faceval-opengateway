@@ -21,10 +21,10 @@ class ScoringProcessor {
 
         if (eyes == null || nose == null || mouth == null) {
             if (face.isEmpty()) {
-                return baseScore * scale
+                return baseScore + 2 * scale
             }
 
-            val weighted = (faceScore + baseScore) * scale
+            val weighted = baseScore + faceScore * scale
             return when {
                 weighted < 0 -> 0.0
                 weighted > 10 -> 10.0
@@ -51,7 +51,7 @@ class ScoringProcessor {
 
         val rawWeight = faceScore * 0.5 + eyesScore * 0.2 + noseScore * 0.1 + mouthScore * 0.1
 
-        val rawScore = (baseScore + rawWeight) * scale
+        val rawScore = baseScore + rawWeight * scale
 
         return when {
             rawScore < 0 -> 0.0
